@@ -14,13 +14,20 @@ public class RDAccount extends Account {
     @Override
     public float calculateInterest() {
 
-        float p = calculateAmountDeposited();
+        float totalInterest = 0;
         float r = rateOfInterest / 100;
         float n = 4;
-        float t = tenure;
 
-        float interest = (float) (p * (Math.pow((1 + r / n), (n * t)) - 1));
+        int months = tenure * 12;
 
-        return interest;
+        for (int i = 0; i < months; i++) {
+
+            float t = (months - i) / 12.0f;
+
+            totalInterest += (float) (principal *
+                    (Math.pow((1 + r / n), (n * t)) - 1));
+        }
+
+        return totalInterest;
     }
 }
